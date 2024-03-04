@@ -1,13 +1,15 @@
 const express = require("express");
 const app = express();
 const pg = require("pg");
+const path = require("path");
+const port = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
+app.use(require("morgan")("dev"));
+
 const client = new pg.Client(
   process.env.DATABASE_URL || "postgres://localhost/acme_hr_directory_db"
 );
-const port = process.env.PORT || 3000;
-
-app.use(express.json());
-app.use(require("morgan")("dev"));
 
 // Department Model
 app.get("/api/departments", async (req, res, next) => {
@@ -81,6 +83,16 @@ app.delete("/api/employees/:id", async (req, res, next) => {
   } catch (ex) {
     next(ex);
   }
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send({ error: err.message });
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 const init = async () => {
