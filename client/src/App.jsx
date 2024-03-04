@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
-function App() {
+const App = () => {
   const [employees, setEmployees] = useState([]);
   const [departments, setDepartments] = useState([]);
 
@@ -39,6 +39,6 @@ function App() {
       ))}
     </div>
   );
-}
+};
 
 export default App;
