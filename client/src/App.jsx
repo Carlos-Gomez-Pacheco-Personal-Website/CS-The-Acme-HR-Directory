@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+import "./index.css";
 
 const App = () => {
   const [employees, setEmployees] = useState([]);
@@ -23,20 +23,30 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="App">
       <h1>ACME HR Directory</h1>
-      <h2>Departments</h2>
-      {departments.map((department) => (
-        <div key={department.id}>
-          <h3>{department.name}</h3>
+      <div className="directory">
+        <div>
+          <h2>Departments</h2>
+          <ul className="list">
+            {departments.map((department) => (
+              <li key={department.id} className="list-item">
+                {department.name}
+              </li>
+            ))}
+          </ul>
         </div>
-      ))}
-      <h2>Employees</h2>
-      {employees.map((employee) => (
-        <div key={employee.id}>
-          <h3>{employee.name}</h3>
+        <div>
+          <h2>Employees</h2>
+          <ul className="list">
+            {employees.map((employee) => (
+              <li key={employee.id} className="list-item">
+                {employee.name}
+              </li>
+            ))}
+          </ul>
         </div>
-      ))}
+      </div>
     </div>
   );
 };
